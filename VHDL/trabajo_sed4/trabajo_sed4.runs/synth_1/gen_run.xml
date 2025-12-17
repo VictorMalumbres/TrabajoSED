@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1765983047" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/TOP_ASCENSOR.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1765986452" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/TOP_ASCENSOR.dcp">
   <File Type="PA-TCL" Name="TOP_ASCENSOR.tcl"/>
   <File Type="REPORTS-TCL" Name="TOP_ASCENSOR_reports.tcl"/>
   <File Type="RDS-RDS" Name="TOP_ASCENSOR.vds"/>
@@ -11,6 +11,12 @@
   <File Type="VDS-TIMING-PB" Name="TOP_ASCENSOR_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/audio.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/display.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>

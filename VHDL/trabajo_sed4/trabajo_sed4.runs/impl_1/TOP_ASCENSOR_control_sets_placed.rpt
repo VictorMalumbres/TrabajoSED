@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Wed Dec 17 15:52:11 2025
+| Date         : Wed Dec 17 16:48:57 2025
 | Host         : DESKTOP-GKJKQ5B running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file TOP_ASCENSOR_control_sets_placed.rpt
 | Design       : TOP_ASCENSOR
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    12 |
-|    Minimum number of control sets                        |    12 |
+| Total control sets                                       |    15 |
+|    Minimum number of control sets                        |    15 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    36 |
+| Unused register locations in slices containing registers |    44 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    12 |
-| >= 0 to < 4        |     0 |
+| Total control sets |    15 |
+| >= 0 to < 4        |     1 |
 | >= 4 to < 6        |     4 |
 | >= 6 to < 8        |     1 |
 | >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     1 |
 | >= 14 to < 16      |     0 |
-| >= 16              |     5 |
+| >= 16              |     7 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,10 +58,10 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              45 |           12 |
+| No           | No                    | No                     |              60 |           23 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             107 |           30 |
-| Yes          | No                    | No                     |               9 |            4 |
+| No           | Yes                   | No                     |             172 |           50 |
+| Yes          | No                    | No                     |               9 |            2 |
 | Yes          | No                    | Yes                    |               0 |            0 |
 | Yes          | Yes                   | No                     |              19 |            6 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
@@ -70,21 +70,24 @@ Table of Contents
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------------+----------------------+--------------------------+------------------+----------------+--------------+
-|     Clock Signal     |     Enable Signal    |     Set/Reset Signal     | Slice Load Count | Bel Load Count | Bels / Slice |
-+----------------------+----------------------+--------------------------+------------------+----------------+--------------+
-|  CLK100MHZ_IBUF_BUFG |                      | U_Vis/leds[7]_i_1_n_0    |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG | U_FSM/en_1hz_reg[0]  | U_FSM/SR[0]              |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG | U_In/E[0]            |                          |                2 |              4 |         2.00 |
-|  CLK100MHZ_IBUF_BUFG | U_Vis/led_level      |                          |                2 |              5 |         2.50 |
-|  CLK100MHZ_IBUF_BUFG | U_FSM/en_disp_reg[0] | U_FSM/blink_state_reg[0] |                2 |              7 |         3.50 |
-|  CLK100MHZ_IBUF_BUFG | U_Div/tick_disp      | U_FSM/blink_state_reg[0] |                3 |              8 |         2.67 |
-|  CLK100MHZ_IBUF_BUFG |                      | U_FSM/rst_sys            |                5 |             12 |         2.40 |
-|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_disp[0]_i_1_n_0  |                5 |             17 |         3.40 |
-|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_anim[0]_i_1_n_0  |                6 |             23 |         3.83 |
-|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_blink[0]_i_1_n_0 |                6 |             24 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_1hz[0]_i_1_n_0   |                7 |             27 |         3.86 |
-|  CLK100MHZ_IBUF_BUFG |                      |                          |               12 |             45 |         3.75 |
-+----------------------+----------------------+--------------------------+------------------+----------------+--------------+
++----------------------+----------------------+---------------------------------+------------------+----------------+--------------+
+|     Clock Signal     |     Enable Signal    |         Set/Reset Signal        | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------------+----------------------+---------------------------------+------------------+----------------+--------------+
+|  CLK100MHZ_IBUF_BUFG |                      | U_Audio/audio_out_i_1_n_0       |                1 |              1 |         1.00 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_Vis/leds[14]_i_1_n_0          |                1 |              4 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG | U_FSM/activo_reg[0]  | U_FSM/SR[0]                     |                1 |              4 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG | U_In/E[0]            |                                 |                1 |              4 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG | U_Vis/led_level      |                                 |                1 |              5 |         5.00 |
+|  CLK100MHZ_IBUF_BUFG | U_FSM/en_disp_reg[0] | U_FSM/blink_state_reg[0]        |                2 |              7 |         3.50 |
+|  CLK100MHZ_IBUF_BUFG | U_Div/tick_disp      | U_FSM/blink_state_reg[0]        |                3 |              8 |         2.67 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_FSM/rst_sys                   |                8 |             12 |         1.50 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_disp[0]_i_1_n_0         |                5 |             17 |         3.40 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_anim[0]_i_1_n_0         |                6 |             23 |         3.83 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_blink[0]_i_1_n_0        |                6 |             24 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_Div/c_1hz[0]_i_1_n_0          |                7 |             27 |         3.86 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_Audio/counter_freq[0]_i_1_n_0 |                8 |             32 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                      | U_FSM/tempo_cnt                 |                8 |             32 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                      |                                 |               23 |             60 |         2.61 |
++----------------------+----------------------+---------------------------------+------------------+----------------+--------------+
 
 

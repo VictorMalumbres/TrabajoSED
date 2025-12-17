@@ -58,11 +58,7 @@ if {$::dispatch::connected} {
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 4
 set_param general.usePosixSpawnForFork 1
-set_param synth.incrementalSynthesisCache C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/.Xil/Vivado-4920-DESKTOP-GKJKQ5B/incrSyn
-set_param checkpoint.writeSynthRtdsInDcp 1
 set_param xicom.use_bs_reader 1
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
@@ -80,6 +76,7 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib {
+  C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/audio.vhd
   C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/display.vhd
   C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/divfrec.vhd
   C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/edgedtctr.vhd

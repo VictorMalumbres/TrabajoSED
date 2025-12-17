@@ -83,3 +83,7 @@ set_property src_info {type:XDC file:1 line:87 export:INPUT save:INPUT read:READ
 set_property -dict { PACKAGE_PIN M17   IOSTANDARD LVCMOS33 } [get_ports { BTNU }]; #IO_L10N_T1_D15_14 Sch=btnr Piso 1
 set_property src_info {type:XDC file:1 line:88 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict { PACKAGE_PIN P18   IOSTANDARD LVCMOS33 } [get_ports { BTND }]; #IO_L9N_T1_DQS_D13_14 Sch=btnd Piso 2
+set_property src_info {type:XDC file:1 line:213 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN A11   IOSTANDARD LVCMOS33 } [get_ports { AUD_PWM }]; #IO_L4N_T0_15 Sch=aud_pwm
+set_property src_info {type:XDC file:1 line:214 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN D12   IOSTANDARD LVCMOS33 } [get_ports { AUD_SD }]; #IO_L6P_T0_15 Sch=aud_sd
