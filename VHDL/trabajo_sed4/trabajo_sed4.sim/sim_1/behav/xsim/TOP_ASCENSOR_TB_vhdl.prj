@@ -1,0 +1,13 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../trabajo_sed4.srcs/sources_1/new/display.vhd" \
+"../../../../trabajo_sed4.srcs/sources_1/new/divfrec.vhd" \
+"../../../../trabajo_sed4.srcs/sources_1/new/edgedtctr.vhd" \
+"../../../../trabajo_sed4.srcs/sources_1/new/fsm.vhd" \
+"../../../../trabajo_sed4.srcs/sources_1/new/sim.vhd" \
+"../../../../trabajo_sed4.srcs/sources_1/new/temporizador.vhd" \
+"../../../../trabajo_sed4.srcs/sources_1/new/top.vhd" \
+"../../../../trabajo_sed4.srcs/sim_1/new/top_ascensor_tb.vhd" \
+
+# Do not sort compile order
+nosort

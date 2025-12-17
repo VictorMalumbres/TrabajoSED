@@ -1,0 +1,23 @@
+Vivado Simulator v2025.1.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:/Xilinx/2025.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot TOP_ASCENSOR_TB_behav xil_defaultlib.TOP_ASCENSOR_TB -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling architecture behavioral of entity xil_defaultlib.Divisor_Frecuencia [divisor_frecuencia_default]
+Compiling architecture behavioral of entity xil_defaultlib.Detector_Entradas [detector_entradas_default]
+Compiling architecture behavioral of entity xil_defaultlib.FSM_Controlador [fsm_controlador_default]
+Compiling architecture behavioral of entity xil_defaultlib.Temporizador [temporizador_default]
+Compiling architecture behavioral of entity xil_defaultlib.Simulador_Planta [simulador_planta_default]
+Compiling architecture behavioral of entity xil_defaultlib.Controlador_Display [controlador_display_default]
+Compiling architecture structural of entity xil_defaultlib.TOP_ASCENSOR [top_ascensor_default]
+Compiling architecture behavioral of entity xil_defaultlib.top_ascensor_tb
+Built simulation snapshot TOP_ASCENSOR_TB_behav

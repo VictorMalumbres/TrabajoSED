@@ -1,0 +1,5 @@
+Time resolution is 1 ps
+Note: INICIO DE SIMULACION
+Time: 0 ps  Iteration: 0  Process: /TOP_ASCENSOR_TB/stim_proc  File: C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sim_1/new/top_ascensor_tb.vhd
+Note: PRUEBA 1: Llamada Normal al Piso 2
+Time: 200 ns  Iteration: 0  Process: /TOP_ASCENSOR_TB/stim_proc  File: C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sim_1/new/top_ascensor_tb.vhd

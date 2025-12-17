@@ -12,10 +12,12 @@ entity Divisor_Frecuencia is
 end Divisor_Frecuencia;
 
 architecture Behavioral of Divisor_Frecuencia is
-    signal c_1hz : integer range 0 to 100000000 := 0;
+    --signal c_1hz : integer range 0 to 100000000 := 0; --Para la placa
+    signal c_1hz : integer range 0 to 100 := 0; --Para el testbench
     signal c_disp : integer range 0 to 100000 := 0;
     signal c_blink : integer range 0 to 20000000 := 0; -- 5Hz
-    signal c_anim : integer range 0 to 5000000 := 0;
+    --signal c_anim : integer range 0 to 5000000 := 0; --Para la placa
+    signal c_anim : integer range 0 to 50 := 0; --Para el testbench
 begin
     process(clk)
     begin

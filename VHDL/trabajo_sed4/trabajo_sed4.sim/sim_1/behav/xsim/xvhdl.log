@@ -1,0 +1,16 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Controlador_Display'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/divfrec.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Divisor_Frecuencia'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/edgedtctr.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Detector_Entradas'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/fsm.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'FSM_Controlador'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/sim.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Simulador_Planta'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/temporizador.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Temporizador'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sources_1/new/top.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'TOP_ASCENSOR'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.srcs/sim_1/new/top_ascensor_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'TOP_ASCENSOR_TB'
