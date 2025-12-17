@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "C:/Users/victo/Documents/trabajo_sed4/trabajo_sed4.runs/impl_1/TOP_ASCENSOR.tcl"
+  variable script "C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.runs/impl_1/TOP_ASCENSOR.tcl"
   variable category "vivado_impl"
 }
 
@@ -109,7 +109,7 @@ set rc [catch {
   set_param general.usePosixSpawnForFork 1
   set_param runs.launchOptions { -jobs 16  }
   open_checkpoint TOP_ASCENSOR_routed.dcp
-  set_property webtalk.parent_dir C:/Users/victo/Documents/trabajo_sed4/trabajo_sed4.cache/wt [current_project]
+  set_property webtalk.parent_dir C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.cache/wt [current_project]
 set_property TOP TOP_ASCENSOR [current_fileset]
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }

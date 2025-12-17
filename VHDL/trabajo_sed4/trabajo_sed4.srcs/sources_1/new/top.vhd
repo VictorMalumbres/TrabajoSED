@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity TOP_ASCENSOR is
     Port ( CLK100MHZ : in STD_LOGIC;
            CPU_RESETN : in STD_LOGIC;
-           SW : in STD_LOGIC_VECTOR(3 downto 0);    
+           SW : in STD_LOGIC_VECTOR(15 downto 0); -- Usamos SW(15) y SW(3..0)
            BTNC, BTNU, BTND, BTNL : in STD_LOGIC;   
            
            LED : out STD_LOGIC_VECTOR(15 downto 0); 
@@ -15,30 +15,35 @@ end TOP_ASCENSOR;
 
 architecture Structural of TOP_ASCENSOR is
     signal rst_sys : std_logic;
-    signal tick_1hz, tick_disp, tick_anim : std_logic;
+    signal tick_1hz, tick_disp, tick_anim, tick_blink : std_logic;
     signal btns_vector : std_logic_vector(3 downto 0);
+    signal sw_pisos : std_logic_vector(3 downto 0);
+    
     signal piso_obj, piso_act : integer range 0 to 3;
-    signal nueva_pet : std_logic;
+    signal nueva_pet, trig_emerg : std_logic;
     signal tmr_start, tmr_done : std_logic;
     signal tmr_dur : integer;
     signal motor_cmd : std_logic_vector(1 downto 0);
-    signal st_vis : integer range 0 to 4;
+    signal st_vis : integer range 0 to 6;
     signal door_open : std_logic;
 
 begin
     rst_sys <= not CPU_RESETN; 
     btns_vector <= BTNL & BTND & BTNU & BTNC; 
+    sw_pisos <= SW(3 downto 0); -- Solo los 4 primeros para pisos
 
     U_Div: entity work.Divisor_Frecuencia
-        port map(clk=>CLK100MHZ, reset=>rst_sys, en_1hz=>tick_1hz, en_disp=>tick_disp, en_anim=>tick_anim);
+        port map(clk=>CLK100MHZ, reset=>rst_sys, en_1hz=>tick_1hz, en_disp=>tick_disp, 
+                 en_blink=>tick_blink, en_anim=>tick_anim);
 
     U_In: entity work.Detector_Entradas
-        port map(clk=>CLK100MHZ, switches=>SW, botones=>btns_vector, 
-                 piso_llamada=>piso_obj, nueva_peticion=>nueva_pet);
+        port map(clk=>CLK100MHZ, sw_reset=>SW(15), switches=>sw_pisos, botones=>btns_vector, 
+                 piso_llamada=>piso_obj, nueva_peticion=>nueva_pet, trigger_emergencia=>trig_emerg);
 
     U_FSM: entity work.FSM_Controlador
         port map(clk=>CLK100MHZ, reset=>rst_sys,
                  piso_actual=>piso_act, piso_llamada=>piso_obj, hay_peticion=>nueva_pet,
+                 trigger_emergencia=>trig_emerg,
                  timer_done=>tmr_done, motor=>motor_cmd, 
                  timer_start=>tmr_start, timer_dur=>tmr_dur,
                  estado_vis=>st_vis, puerta_abierta=>door_open);
@@ -52,7 +57,7 @@ begin
                  motor=>motor_cmd, piso_actual=>piso_act);
 
     U_Vis: entity work.Controlador_Display
-        port map(clk=>CLK100MHZ, en_disp=>tick_disp, en_anim=>tick_anim,
+        port map(clk=>CLK100MHZ, en_disp=>tick_disp, en_anim=>tick_anim, en_blink=>tick_blink,
                  piso=>piso_act, estado_vis=>st_vis, puerta_abierta=>door_open,
                  seg=>SEG, an=>AN, leds=>LED);
 

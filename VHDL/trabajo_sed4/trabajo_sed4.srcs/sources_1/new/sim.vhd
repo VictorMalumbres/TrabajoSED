@@ -10,7 +10,7 @@ end Simulador_Planta;
 
 architecture Behavioral of Simulador_Planta is
     signal piso_reg : integer range 0 to 3 := 0;
-    signal contador_segundos : integer range 0 to 10 := 0; -- Contador para retardar
+    signal contador_segundos : integer range 0 to 10 := 0; 
 begin
     process(clk)
     begin
@@ -19,14 +19,11 @@ begin
                 piso_reg <= 0;
                 contador_segundos <= 0;
             elsif en_1hz = '1' then
-                -- Si el motor está encendido (cualquier dirección)
                 if motor /= "00" then
                     contador_segundos <= contador_segundos + 1;
-                    
-                    -- MODIFICACIÓN: Esperar 2 segundos (pulsos) antes de cambiar
-                    if contador_segundos >= 1 then -- Contamos 0, 1 (Total 2 ticks)
-                        contador_segundos <= 0; -- Reiniciar cuenta parcial
-                        
+                    -- Esperar 2 segundos antes de cambiar
+                    if contador_segundos >= 1 then 
+                        contador_segundos <= 0; 
                         if motor = "01" and piso_reg < 3 then 
                             piso_reg <= piso_reg + 1;
                         elsif motor = "10" and piso_reg > 0 then 
@@ -34,7 +31,7 @@ begin
                         end if;
                     end if;
                 else
-                    contador_segundos <= 0; -- Si motor para, reiniciamos cuenta
+                    contador_segundos <= 0;
                 end if;
             end if;
         end if;

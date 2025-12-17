@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Wed Dec 17 12:32:01 2025
+| Date         : Wed Dec 17 13:05:11 2025
 | Host         : DESKTOP-GKJKQ5B running 64-bit major release  (build 9200)
 | Command      : report_drc -file TOP_ASCENSOR_drc_routed.rpt -pb TOP_ASCENSOR_drc_routed.pb -rpx TOP_ASCENSOR_drc_routed.rpx
 | Design       : TOP_ASCENSOR
@@ -24,11 +24,12 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 1
+             Checks found: 2
 +----------+----------+-----------------------------------------------------+--------+
 | Rule     | Severity | Description                                         | Checks |
 +----------+----------+-----------------------------------------------------+--------+
 | CFGBVS-1 | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1      |
+| PLIO-3   | Warning  | Placement Constraints Check for IO constraints      | 1      |
 +----------+----------+-----------------------------------------------------+--------+
 
 2. REPORT DETAILS
@@ -44,6 +45,11 @@ Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_des
  #where value2 is the voltage provided to configuration bank 0
 
 Refer to the device configuration user guide for more information.
+Related violations: <none>
+
+PLIO-3#1 Warning
+Placement Constraints Check for IO constraints  
+Partially locked IO Bus is found. Following components of the IO Bus SW[15:0] are not locked:  SW[14] SW[13] SW[12] SW[11] SW[10] SW[9] SW[8] SW[7] SW[6] SW[5] SW[4]
 Related violations: <none>
 
 
