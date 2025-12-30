@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Tue Dec 30 12:40:42 2025
-# Process ID         : 17612
+# Start of session at: Tue Dec 30 18:28:48 2025
+# Process ID         : 16180
 # Current directory  : C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.runs/impl_1
 # Command line       : vivado.exe -log TOP_ASCENSOR.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source TOP_ASCENSOR.tcl -notrace
 # Log file           : C:/Users/victo/Documents/GitHub/TrabajoSED/VHDL/trabajo_sed4/trabajo_sed4.runs/impl_1/TOP_ASCENSOR.vdi
@@ -19,6 +19,6 @@
 # Host memory        : 16559 MB
 # Swap memory        : 2550 MB
 # Total Virtual      : 19109 MB
-# Available Virtual  : 6134 MB
+# Available Virtual  : 8203 MB
 #-----------------------------------------------------------
 source TOP_ASCENSOR.tcl -notrace

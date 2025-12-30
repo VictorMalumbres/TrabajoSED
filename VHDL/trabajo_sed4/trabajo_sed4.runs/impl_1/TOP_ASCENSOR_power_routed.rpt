@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Tue Dec 30 12:42:10 2025
+| Date             : Tue Dec 30 18:30:05 2025
 | Host             : DESKTOP-GKJKQ5B running 64-bit major release  (build 9200)
 | Command          : report_power -file TOP_ASCENSOR_power_routed.rpt -pb TOP_ASCENSOR_power_summary_routed.pb -rpx TOP_ASCENSOR_power_routed.rpx
 | Design           : TOP_ASCENSOR
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.118        |
+| Total On-Chip Power (W)  | 0.119        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.014        |
+| Dynamic (W)              | 0.015        |
 | Device Static (W)        | 0.104        |
 | Effective TJA (C/W)      | 4.6          |
 | Max Ambient (C)          | 84.5         |
@@ -53,15 +53,15 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.003 |        3 |       --- |             --- |
-| Slice Logic    |    <0.001 |      768 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      270 |     63400 |            0.43 |
-|   CARRY4       |    <0.001 |       71 |     15850 |            0.45 |
-|   Register     |    <0.001 |      294 |    126800 |            0.23 |
+| Slice Logic    |    <0.001 |      660 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      250 |     63400 |            0.39 |
+|   CARRY4       |    <0.001 |       54 |     15850 |            0.34 |
+|   Register     |    <0.001 |      224 |    126800 |            0.18 |
 |   Others       |     0.000 |       15 |       --- |             --- |
-| Signals        |    <0.001 |      478 |       --- |             --- |
-| I/O            |     0.010 |       55 |       210 |           26.19 |
+| Signals        |    <0.001 |      371 |       --- |             --- |
+| I/O            |     0.011 |       55 |       210 |           26.19 |
 | Static Power   |     0.104 |          |           |                 |
-| Total          |     0.118 |          |           |                 |
+| Total          |     0.119 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Vccint    |       1.000 |     0.019 |       0.004 |      0.015 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.019 |       0.000 |      0.018 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.006 |       0.002 |      0.004 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.007 |       0.003 |      0.004 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.005 |       0.001 |      0.004 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -140,9 +140,8 @@ Table of Contents
 +--------------+-----------+
 | Name         | Power (W) |
 +--------------+-----------+
-| TOP_ASCENSOR |     0.014 |
+| TOP_ASCENSOR |     0.015 |
 |   U_Audio    |     0.001 |
-|   U_Div      |     0.001 |
 +--------------+-----------+
 
 

@@ -22,16 +22,24 @@ begin
             if reset = '1' then
                 c_1hz <= 0; c_disp <= 0; c_blink <= 0; c_anim <= 0;
             else
-                if c_1hz = 99999999 then c_1hz <= 0; en_1hz <= '1';
+                --if c_1hz = 99999999 --Para la placa
+                if c_1hz = 99 --Para el testbench
+                then c_1hz <= 0; en_1hz <= '1';
                 else c_1hz <= c_1hz + 1; en_1hz <= '0'; end if;
                 
-                if c_disp = 49999 then c_disp <= 0; en_disp <= '1';
+                --if c_disp = 49999 --Para la placa
+                if c_disp = 9 --Para el testbench
+                then c_disp <= 0; en_disp <= '1';
                 else c_disp <= c_disp + 1; en_disp <= '0'; end if;
 
-                if c_blink = 9999999 then c_blink <= 0; en_blink <= '1'; 
+                --if c_blink = 9999999 --Para la placa
+                if c_blink = 19 --Para el testbench 
+                then c_blink <= 0; en_blink <= '1'; 
                 else c_blink <= c_blink + 1; en_blink <= '0'; end if;
 
-                if c_anim = 4999999 then c_anim <= 0; en_anim <= '1';
+                --if c_anim = 4999999 --Para la placa
+                if c_anim = 14 --Para el testbench
+                then c_anim <= 0; en_anim <= '1';
                 else c_anim <= c_anim + 1; en_anim <= '0'; end if;
             end if;
         end if;
