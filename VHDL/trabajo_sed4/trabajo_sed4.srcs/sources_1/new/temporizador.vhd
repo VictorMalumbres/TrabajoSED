@@ -25,9 +25,7 @@ begin
                 elsif activo = '1' and en_1hz = '1' then
                     if contador >= duracion - 1 then
                         fin_tiempo <= '1'; activo <= '0';
-                    else
-                        contador <= contador + 1;
-                    end if;
+                    else contador <= contador + 1; end if;
                 end if;
             end if;
         end if;
