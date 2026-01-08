@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Tue Dec 30 18:29:17 2025
+| Date         : Thu Jan  8 16:20:18 2026
 | Host         : DESKTOP-GKJKQ5B running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file TOP_ASCENSOR_control_sets_placed.rpt
 | Design       : TOP_ASCENSOR
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    19 |
-|    Minimum number of control sets                        |    19 |
+| Total control sets                                       |    18 |
+|    Minimum number of control sets                        |    18 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    56 |
+| Unused register locations in slices containing registers |    50 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    19 |
+| Total control sets |    18 |
 | >= 0 to < 4        |     1 |
-| >= 4 to < 6        |    10 |
-| >= 6 to < 8        |     2 |
+| >= 4 to < 6        |     6 |
+| >= 6 to < 8        |     1 |
 | >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     1 |
 | >= 12 to < 14      |     0 |
 | >= 14 to < 16      |     1 |
-| >= 16              |     3 |
+| >= 16              |     7 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              70 |           33 |
+| No           | No                    | No                     |              74 |           30 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             114 |           35 |
-| Yes          | No                    | No                     |              28 |           11 |
+| No           | Yes                   | No                     |             184 |           48 |
+| Yes          | No                    | No                     |              24 |            9 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              12 |            7 |
+| Yes          | Yes                   | No                     |              12 |            5 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -75,23 +75,22 @@ Table of Contents
 +----------------------+------------------------------------+------------------------------------+------------------+----------------+--------------+
 |  CLK100MHZ_IBUF_BUFG |                                    | U_Audio/audio_out_i_1_n_0          |                1 |              1 |         1.00 |
 |  CLK100MHZ_IBUF_BUFG |                                    | U_Vis/leds_s[14]_i_1_n_0           |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_Vis/led_level_reg[4]             |                2 |              4 |         2.00 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_anim[0]_i_1_n_0            |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_disp[0]_i_1_n_0            |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG | U_In/trigger_emergencia_reg_0      |                                    |                1 |              4 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_Vis/led_level_reg[4]             |                1 |              4 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG | U_Audio/current_period[18]_i_1_n_0 | U_Audio/current_period[17]_i_1_n_0 |                2 |              4 |         2.00 |
+|  CLK100MHZ_IBUF_BUFG | CPU_RESETN_IBUF                    | U_In/SR[0]                         |                2 |              4 |         2.00 |
 |  CLK100MHZ_IBUF_BUFG | U_FSM/E[0]                         | U_FSM/timer_start_reg_0[0]         |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG | CPU_RESETN_IBUF                    | U_In/SR[0]                         |                3 |              4 |         1.33 |
-|  CLK100MHZ_IBUF_BUFG | U_Audio/current_period[18]_i_1_n_0 | U_Audio/current_period[17]_i_1_n_0 |                3 |              4 |         1.33 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_blink[0]_i_1_n_0           |                2 |              5 |         2.50 |
-|  CLK100MHZ_IBUF_BUFG | U_Vis/led_level                    |                                    |                1 |              5 |         5.00 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_FSM/rst                          |                3 |              6 |         2.00 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_1hz[0]_i_1_n_0             |                2 |              7 |         3.50 |
-|  CLK100MHZ_IBUF_BUFG | CPU_RESETN_IBUF                    |                                    |                5 |              8 |         1.60 |
+|  CLK100MHZ_IBUF_BUFG | U_Vis/led_level                    |                                    |                2 |              5 |         2.50 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_FSM/rst                          |                2 |              6 |         3.00 |
+|  CLK100MHZ_IBUF_BUFG | CPU_RESETN_IBUF                    |                                    |                3 |              8 |         2.67 |
 |  CLK100MHZ_IBUF_BUFG | U_Audio/current_period[18]_i_1_n_0 |                                    |                4 |             11 |         2.75 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_FSM/blink_state_reg[0]           |                6 |             15 |         2.50 |
-|  CLK100MHZ_IBUF_BUFG |                                    | U_FSM/clear                        |                8 |             32 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_FSM/blink_state_reg[0]           |                4 |             15 |         3.75 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_disp[0]_i_1_n_0            |                4 |             16 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_anim[0]_i_1_n_0            |                6 |             23 |         3.83 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_blink[0]_i_1_n_0           |                6 |             24 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_Div/c_1hz[0]_i_1_n_0             |                7 |             27 |         3.86 |
 |  CLK100MHZ_IBUF_BUFG |                                    | U_Audio/counter_freq[0]_i_1_n_0    |                8 |             32 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG |                                    |                                    |               33 |             70 |         2.12 |
+|  CLK100MHZ_IBUF_BUFG |                                    | U_FSM/clear                        |                8 |             32 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG |                                    |                                    |               30 |             74 |         2.47 |
 +----------------------+------------------------------------+------------------------------------+------------------+----------------+--------------+
 
 
