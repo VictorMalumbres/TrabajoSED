@@ -1,0 +1,4 @@
+../Core/Src/logica_juego.c:21:6:Logica_Inicializar	1
+../Core/Src/logica_juego.c:32:6:Logica_Ejecutar_Ciclo	19
+../Core/Src/logica_juego.c:178:6:Callback_Boton_Validar	2
+../Core/Src/logica_juego.c:185:6:Callback_Boton_Inicio	2

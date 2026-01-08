@@ -1,0 +1,4 @@
+../Core/Src/logica_juego.c:21:6:Logica_Inicializar	8	static
+../Core/Src/logica_juego.c:32:6:Logica_Ejecutar_Ciclo	80	static
+../Core/Src/logica_juego.c:178:6:Callback_Boton_Validar	8	static
+../Core/Src/logica_juego.c:185:6:Callback_Boton_Inicio	8	static

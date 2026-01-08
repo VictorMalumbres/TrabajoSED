@@ -1,0 +1,5 @@
+../Core/Src/hardware.c:19:6:Hardware_Init	1
+../Core/Src/hardware.c:28:6:Leer_Potenciometros	3
+../Core/Src/hardware.c:56:6:Actualizar_LED_Digito	4
+../Core/Src/hardware.c:79:6:Apagar_Todos_LEDs	2
+../Core/Src/hardware.c:83:6:Zumbador_Tono	3
