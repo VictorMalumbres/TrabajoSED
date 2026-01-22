@@ -1,5 +1,6 @@
-../Core/Src/logica_juego.c:31:6:Logica_Timer_Callback	3
-../Core/Src/logica_juego.c:42:6:Logica_Inicializar	1
-../Core/Src/logica_juego.c:56:6:Logica_Ejecutar_Ciclo	22
-../Core/Src/logica_juego.c:175:6:Callback_Boton_Validar	2
-../Core/Src/logica_juego.c:178:6:Callback_Boton_Inicio	2
+../Core/Src/logica_juego.c:33:6:Cambiar_Estado	1
+../Core/Src/logica_juego.c:40:6:Logica_Timer_Callback	3
+../Core/Src/logica_juego.c:51:6:Logica_Inicializar	1
+../Core/Src/logica_juego.c:68:6:Logica_Ejecutar_Ciclo	34
+../Core/Src/logica_juego.c:221:6:Callback_Boton_Validar	2
+../Core/Src/logica_juego.c:224:6:Callback_Boton_Inicio	2

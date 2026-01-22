@@ -4,7 +4,6 @@
 #include "main.h"
 #include <stdbool.h>
 
-// Estados de la máquina
 typedef enum {
     ESTADO_ESPERA,
     ESTADO_GENERAR,
@@ -14,14 +13,11 @@ typedef enum {
     ESTADO_DERROTA
 } EstadoJuego;
 
-// Declaramos 'extern' para que main.c pueda ver el estado si quiere
 extern EstadoJuego estado_actual;
 
-// Funciones principales
+// Funciones
 void Logica_Inicializar(void);
 void Logica_Ejecutar_Ciclo(void);
-
-// Función llamada por la interrupción del Timer
 void Logica_Timer_Callback(void);
 
 #endif /* INC_LOGICA_JUEGO_H_ */

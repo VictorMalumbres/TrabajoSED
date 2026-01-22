@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "main.h"
 
-// --- IMPORTANTE: Usamos 'extern' para no duplicar la variable htim2 ---
+// --- VARIABLE EXTERNA DEL TIMER (Para arreglar el error de compilación) ---
 extern TIM_HandleTypeDef htim2;
 
 // Variables Globales del Juego
@@ -14,27 +14,36 @@ int clave_secreta[4];
 int intento_actual[4];
 bool digito_bloqueado[4];
 
-// Variables de Juego y Tiempo
+// Variables de Juego
 int intentos_restantes = 6;
-int tiempo_restante = 120; // 120 segundos totales
+int tiempo_restante = 120; // 120 segundos
 
-// Variables auxiliares
+// VARIABLES PARA LOGICA NO BLOQUEANTE (El sustituto de HAL_Delay)
+uint32_t t_inicio_estado = 0;   // Guarda la hora a la que entramos al estado
+bool es_inicio_estado = true;   // Indica si acabamos de entrar (para ejecutar cosas 1 sola vez)
 uint32_t ultimo_refresco_lcd = 0;
 
-// Variables Anti-Rebote para botones
+// Variables Botones
 volatile uint32_t t_btn_val = 0;
 volatile uint32_t t_btn_ini = 0;
 volatile bool flag_validar = false;
 volatile bool flag_inicio = false;
 
-// --- FUNCIÓN DEL TIMER (Se ejecuta cada segundo automáticamente) ---
+// Función para cambiar de estado de forma segura y marcar el tiempo
+void Cambiar_Estado(EstadoJuego nuevo_estado) {
+    estado_actual = nuevo_estado;
+    es_inicio_estado = true; // Marcamos que acabamos de llegar
+    t_inicio_estado = HAL_GetTick(); // Guardamos la hora de llegada
+}
+
+// --- TIMER HARDWARE (Cuenta atrás 120s) ---
 void Logica_Timer_Callback() {
     if (estado_actual == ESTADO_JUGANDO) {
         if (tiempo_restante > 0) {
             tiempo_restante--;
         } else {
-            // Si el tiempo llega a 0, cambiamos a derrota inmediatamente
-            estado_actual = ESTADO_DERROTA;
+            // Cambio directo si se acaba el tiempo
+            Cambiar_Estado(ESTADO_DERROTA);
         }
     }
 }
@@ -44,52 +53,75 @@ void Logica_Inicializar() {
     lcd_clear();
     lcd_put_cur(0,0);
     lcd_send_string("PROYECTO CERROJO");
-    HAL_Delay(2000);
+    // Aquí sí podemos dejar un delay pequeño al arrancar,
+    // pero si es estricto, mejor quítalo. Dejamos 1s.
+    HAL_Delay(1000);
 
-    tiempo_restante = 120; // Reiniciamos reloj
-
+    tiempo_restante = 120;
     lcd_clear();
     lcd_put_cur(0,0);
     lcd_send_string("PULSA INICIO");
+
+    Cambiar_Estado(ESTADO_ESPERA);
 }
 
 void Logica_Ejecutar_Ciclo() {
     char buffer[20];
     int lecturas_raw[4];
+    uint32_t t_actual = HAL_GetTick(); // Hora actual del sistema
 
     switch (estado_actual) {
+
+        // --- 1. ESPERA ---
         case ESTADO_ESPERA:
+            if (es_inicio_estado) {
+                // Cosas que se hacen solo al entrar en ESPERA
+                es_inicio_estado = false;
+            }
+
             if (flag_inicio) {
                 flag_inicio = false;
-                estado_actual = ESTADO_GENERAR;
+                Cambiar_Estado(ESTADO_GENERAR);
             }
             break;
 
+        // --- 2. GENERAR ---
         case ESTADO_GENERAR:
-            srand(HAL_GetTick());
-            for(int i=0; i<4; i++) {
-                clave_secreta[i] = rand() % 10;
-                digito_bloqueado[i] = false;
-            }
-            intentos_restantes = 6;
-            tiempo_restante = 120; // 2 minutos
+            if (es_inicio_estado) {
+                srand(HAL_GetTick());
+                for(int i=0; i<4; i++) {
+                    clave_secreta[i] = rand() % 10;
+                    digito_bloqueado[i] = false;
+                }
+                intentos_restantes = 6;
+                tiempo_restante = 120;
 
-            lcd_clear();
-            lcd_send_string("NUEVA PARTIDA");
-            HAL_Delay(1000);
-            lcd_clear();
-            estado_actual = ESTADO_JUGANDO;
+                lcd_clear();
+                lcd_send_string("NUEVA PARTIDA");
+                es_inicio_estado = false;
+            }
+
+            // SUSTITUTO DEL HAL_DELAY(1000):
+            // Si han pasado 1000ms desde que entramos, cambiamos.
+            if (t_actual - t_inicio_estado >= 1000) {
+                lcd_clear();
+                Cambiar_Estado(ESTADO_JUGANDO);
+            }
             break;
 
+        // --- 3. JUGANDO ---
         case ESTADO_JUGANDO:
-            // 1. Leer Hardware
+            // Aquí no había delays, así que se queda casi igual
+            if (es_inicio_estado) es_inicio_estado = false;
+
+            // Leer Hardware
             Leer_Potenciometros(lecturas_raw);
             for(int i=0; i<4; i++) {
                 if(!digito_bloqueado[i]) intento_actual[i] = lecturas_raw[i];
             }
 
-            // 2. Refrescar Pantalla (Muestra Tiempo T:xxx)
-            if (HAL_GetTick() - ultimo_refresco_lcd > 200) {
+            // Refrescar LCD
+            if (t_actual - ultimo_refresco_lcd > 200) {
                 sprintf(buffer, "T:%03d Vid:%d", tiempo_restante, intentos_restantes);
                 lcd_put_cur(0, 0); lcd_send_string(buffer);
 
@@ -98,80 +130,94 @@ void Logica_Ejecutar_Ciclo() {
                         intento_actual[2], intento_actual[3]);
                 lcd_put_cur(1, 0); lcd_send_string(buffer);
 
-                ultimo_refresco_lcd = HAL_GetTick();
+                ultimo_refresco_lcd = t_actual;
             }
 
-            // 3. Verificar derrota por tiempo
-            if (tiempo_restante <= 0) estado_actual = ESTADO_DERROTA;
+            // Verificar tiempo agotado (por si el Timer se adelantó)
+            if (tiempo_restante <= 0) Cambiar_Estado(ESTADO_DERROTA);
 
-            // 4. Botones
-            if (flag_validar) { flag_validar = false; estado_actual = ESTADO_VERIFICAR; }
-            if (flag_inicio) { flag_inicio = false; estado_actual = ESTADO_GENERAR; }
+            // Botones
+            if (flag_validar) { flag_validar = false; Cambiar_Estado(ESTADO_VERIFICAR); }
+            if (flag_inicio) { flag_inicio = false; Cambiar_Estado(ESTADO_GENERAR); }
             break;
 
+        // --- 4. VERIFICAR ---
         case ESTADO_VERIFICAR:
-            lcd_clear();
-            lcd_send_string("VERIFICANDO...");
-            HAL_Delay(500);
+            if (es_inicio_estado) {
+                lcd_clear();
+                lcd_send_string("VERIFICANDO...");
 
-            intentos_restantes--;
-            int aciertos = 0;
+                intentos_restantes--;
 
-            for(int i=0; i<4; i++) {
-                int dif = abs(intento_actual[i] - clave_secreta[i]);
-                if (dif == 0) {
-                    Actualizar_LED_Digito(i, VERDE);
-                    digito_bloqueado[i] = true;
-                    aciertos++;
-                } else if (dif == 1) {
-                    Actualizar_LED_Digito(i, AMARILLO);
+                // Lógica de colores
+                for(int i=0; i<4; i++) {
+                    int dif = abs(intento_actual[i] - clave_secreta[i]);
+                    if (dif == 0) { Actualizar_LED_Digito(i, VERDE); digito_bloqueado[i] = true; }
+                    else if (dif == 1) { Actualizar_LED_Digito(i, AMARILLO); }
+                    else { Actualizar_LED_Digito(i, ROJO); }
+                }
+                es_inicio_estado = false;
+            }
+
+            // SUSTITUTO DE HAL_DELAY(1500) para ver los LEDs:
+            if (t_actual - t_inicio_estado >= 1500) {
+                // Decidir destino
+                int aciertos = 0;
+                for(int i=0; i<4; i++) if(intento_actual[i] == clave_secreta[i]) aciertos++;
+
+                if (aciertos == 4) {
+                    Cambiar_Estado(ESTADO_VICTORIA);
+                } else if (intentos_restantes <= 0 || tiempo_restante <= 0) {
+                    Cambiar_Estado(ESTADO_DERROTA);
                 } else {
-                    Actualizar_LED_Digito(i, ROJO);
+                    lcd_clear();
+                    Zumbador_Tono(100, 0); // Pitido corto
+                    Cambiar_Estado(ESTADO_JUGANDO);
                 }
             }
-            HAL_Delay(1500); // Pausa visual
+            break;
 
-            if (aciertos == 4) {
-                estado_actual = ESTADO_VICTORIA;
-            } else if (intentos_restantes <= 0 || tiempo_restante <= 0) {
-                estado_actual = ESTADO_DERROTA;
-            } else {
-                // Sigue jugando
+        // --- 5. VICTORIA ---
+        case ESTADO_VICTORIA:
+            if (es_inicio_estado) {
                 lcd_clear();
-                Zumbador_Tono(100, 0);
-                estado_actual = ESTADO_JUGANDO;
+                lcd_send_string("GANASTE!!");
+                lcd_put_cur(1,0);
+                sprintf(buffer, "Clave: %d%d%d%d", clave_secreta[0], clave_secreta[1], clave_secreta[2], clave_secreta[3]);
+                lcd_send_string(buffer);
+                Zumbador_Tono(100, 1);
+                es_inicio_estado = false;
+            }
+
+            // SUSTITUTO DE HAL_DELAY(4000): Esperamos 4s y reiniciamos
+            if (t_actual - t_inicio_estado >= 4000) {
+                Logica_Inicializar(); // Reinicia y va a ESPERA
             }
             break;
 
-        case ESTADO_VICTORIA:
-            lcd_clear();
-            lcd_send_string("GANASTE!!");
-            lcd_put_cur(1,0);
-            sprintf(buffer, "Clave: %d%d%d%d", clave_secreta[0], clave_secreta[1], clave_secreta[2], clave_secreta[3]);
-            lcd_send_string(buffer);
-            Zumbador_Tono(100, 1);
-            HAL_Delay(4000);
-            Logica_Inicializar();
-            estado_actual = ESTADO_ESPERA;
-            break;
-
+        // --- 6. DERROTA ---
         case ESTADO_DERROTA:
-            lcd_clear();
-            if (tiempo_restante <= 0) lcd_send_string("TIEMPO AGOTADO");
-            else lcd_send_string("FIN DE JUEGO");
+            if (es_inicio_estado) {
+                lcd_clear();
+                if (tiempo_restante <= 0) lcd_send_string("TIEMPO AGOTADO");
+                else lcd_send_string("FIN DE JUEGO");
 
-            lcd_put_cur(1,0);
-            sprintf(buffer, "Era: %d%d%d%d", clave_secreta[0], clave_secreta[1], clave_secreta[2], clave_secreta[3]);
-            lcd_send_string(buffer);
-            Zumbador_Tono(500, 0);
-            HAL_Delay(4000);
-            Logica_Inicializar();
-            estado_actual = ESTADO_ESPERA;
+                lcd_put_cur(1,0);
+                sprintf(buffer, "Era: %d%d%d%d", clave_secreta[0], clave_secreta[1], clave_secreta[2], clave_secreta[3]);
+                lcd_send_string(buffer);
+                Zumbador_Tono(500, 0);
+                es_inicio_estado = false;
+            }
+
+            // SUSTITUTO DE HAL_DELAY(4000)
+            if (t_actual - t_inicio_estado >= 4000) {
+                Logica_Inicializar();
+            }
             break;
     }
 }
 
-// Callbacks botones
+// Callbacks Botones
 void Callback_Boton_Validar() {
     if (HAL_GetTick() - t_btn_val > 500) { flag_validar = true; t_btn_val = HAL_GetTick(); }
 }
